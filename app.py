@@ -1,13 +1,15 @@
 import pandas as pd
 import streamlit as st
 import datetime
-from snowflake_connector import get_snowflake_session
+#from snowflake_connector import get_snowflake_session
 
 
 class SnowflakeDataApp:
     def __init__(self):
         st.set_page_config(page_title="Snowflake Data App", layout="wide")
-        self.session = get_snowflake_session()
+        cnx=st.connection("snowflake")
+        self.session=cnx.session()
+        #self.session = get_snowflake_session()
         self._initialize_session_state()
         self.selected_db = st.session_state.get("selected_db")
         self.selected_table = st.session_state.get("selected_table")
